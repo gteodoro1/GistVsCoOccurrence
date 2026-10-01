@@ -1,0 +1,682 @@
+aerial
+air conditioning
+air hockey table
+air vent
+aircraft
+aircraft carrier
+airplane
+alarm clock
+altar
+altarpiece
+animal
+apple
+aquarium
+aqueduct
+arcade machine
+arch
+armchair
+ashtray
+attic
+awning
+baby carriage
+backpack
+badge
+bag
+baggage cart
+balcony
+ball
+balustrade
+banana
+bandstand
+baptismal font
+bar
+barrel
+baseboard
+basket
+basketball hoop
+bat
+bathtub
+bathtube
+beam
+bed
+bell
+bench
+berth
+bicycle
+bidet
+big top
+billboard
+billiard table
+bin
+binder
+bird
+blackboard
+blanket
+blender
+blind
+board
+boat
+book
+bookcase
+boot
+bottle
+bottle rack
+bouquet
+bow window
+bowl
+bowling alley
+box
+branch
+brand name
+bread
+bread roll
+bridge
+briefcase
+brochure
+broom
+brush
+bucket
+building
+bulb
+bulletin board
+bunk bed
+bus
+bus stop
+bush
+button
+cabin
+cabinet
+cage
+cake
+calendar
+can
+candelabra
+candle
+candleholder
+candlestick
+candy
+canister
+cannon
+canopy
+cap
+car
+car front
+car rear
+car taxi
+caravan
+card
+carousel
+carpet
+carport
+cars side
+cash register
+casserole
+castle
+cave
+ceiling
+ceiling fan
+ceiling lamp
+central reservation
+ceramic figure
+chair
+chandelier
+check-in-desk
+cheese
+chest
+chest of drawer
+chimney
+cistern
+city
+cliff
+clock
+closet
+cloth
+clothes
+clothes hanging
+clothes hook
+cloud
+cloudy sky
+club
+coat
+coffee cup
+coffee maker
+coffee table
+column
+cone
+conference table
+console table
+control tower
+conveyor belt
+cooky
+counter
+countertop
+court
+covered balcony
+covered bridge
+cow
+cpu
+cradle
+crane
+cross
+crosswalk
+cubicle
+cuddly toy
+cue
+cup
+curb
+curtain
+curtain rod
+cushion
+cutlery
+cutting board
+dam
+dashboard
+deck
+deck chair
+decoration
+decorative plate
+dental chair
+desk
+desk lamp
+desk mat
+desk organizer
+dirt track
+dish
+dish rack
+dish towel
+dishcloth
+dishwasher
+display
+display stand
+dock
+dog
+doll
+dome
+door
+door frame
+door handle
+door knob
+doorway
+double door
+drain
+drawer
+drawing
+dress
+dresser
+dried flower
+dummy
+duvet
+dvd
+easel
+elephant
+elevator
+elevator door
+embankment
+embrasure
+end table
+entrance
+equipment
+escalator
+excavator
+exercise machine
+exit sign
+extractor fan
+extractor hood
+eyeglass
+factory
+fan
+faucet
+fence
+field
+field grass
+figure
+file
+file cabinet
+filing cabinet
+finger
+fire escape
+fire extinguisher
+fire hydrant
+fireplace
+fish
+flag
+float
+floor
+floor lamp
+flower
+fluorescent tube
+fog bank
+folder
+folding door
+folding screen
+food processor
+footbridge
+forecourt
+fork
+forklift
+frame
+french bread
+fruit
+fruit bowl
+frying pan
+garage door
+gas pump
+gate
+gazebo
+glass
+glass ceiling
+glass door
+glass wall
+glasses
+globe
+grand piano
+grandstand
+grape
+grass
+greenhouse
+grille
+grille door
+ground
+guitar
+hair dryer
+hairbrush
+hand trolley
+handle
+handle door
+handrail
+hanger
+hat
+hay roll
+headboard
+headstone
+heated swimming pool
+heater
+hedge
+helicopter
+hen
+henhouse
+hill
+hill urban
+horse
+hose
+hotpl
+hous
+house
+hut
+ice
+ice rink
+iceberg
+igloo
+inflatable bounce game
+instrument panel
+island
+jacket
+jacuzzi
+jar
+jug
+junk
+kennel
+kettle
+key
+keyboard
+kiosk
+kitchen island
+knife
+knife set
+knob
+labyrinth
+ladder
+lamppost
+land
+laptop
+large window
+leaf
+lectern
+ledge
+license plate
+light
+lighthouse
+litter bin
+loaf
+locker
+loudspeaker
+machine
+machinery
+magazine
+magazine rack
+manhole
+manhole cover
+map
+mast
+mat
+mattress
+merchandise
+metal shutter
+mezzanine
+microphone
+microwave
+mirror
+mobile
+monitor
+mosque
+motorbike
+mountain
+mountain pass
+mouse
+mouse pad
+mug
+music system
+napkin
+napkin ring
+net
+newspaper
+newsstand
+night table
+notebook
+number
+object
+open plan
+orange
+organ
+ottoman
+outlet
+oven
+pack
+paintbrush
+painting
+pallet
+palm tree
+pane
+pantry
+paper
+paper cup
+paper filer
+paper roll
+paper towel
+partition wall
+path
+pavilion
+pedestal
+pen
+people sitting
+pepper
+person
+person player
+person sitting
+person standing
+person walking
+phone
+photo machine
+piano
+pickup
+picture
+picture frame
+pillar
+pillow
+pipe
+pitch
+pitcher
+place mat
+plain
+plank
+plant
+plant pot
+planter
+plastic bag
+plate
+platform
+plug
+podium
+pole
+pond
+pool
+porch
+poster
+pot
+potted plant
+pottery
+price
+printer
+projection screen
+projector
+pulpit
+purse
+pylon
+quay
+rack
+racket
+racking chair
+radiator
+radio
+rail
+railing
+railway
+ramp
+refrigerator
+remote control
+revolving door
+rifle
+ring
+river water
+road
+rock
+rocking chair
+rocky ground
+rocky mountain
+rocky wall
+roll
+roof
+rope
+rope bridge
+rubble
+rudder
+rug
+ruin
+runway
+safety belt
+salt
+saltcellar
+sand
+sand beach
+sand dune
+sand floor
+sand trap
+satellite dish
+saucepan
+savanna
+scaffolding
+scale
+sconce
+scoreboard
+screen
+sculpture
+sea water
+seat
+separation
+service station
+set of instrument
+sewing machine
+shanty
+sheep
+shelf
+ship
+shirt
+shoe
+shop
+shop window
+showcase
+shower
+shower curtain
+shower screen
+shrub
+shutter
+side table
+sideboard
+sidewalk
+sidewalk cafe
+sign
+sink
+skeleton
+skirt
+skittle
+sky
+skylight
+skyscraper
+sliding door
+slipper
+slope
+slot machine
+small table
+smoke
+sneaker
+snow
+snow covered ground
+snowy ground
+snowy mountain
+soap
+soap bottle
+soap dish
+soap dispenser
+sofa
+spade
+speaker
+spice rack
+sponge
+spoon
+spotlight
+spray
+sprinkler
+stage
+staircase
+stall
+stall shower
+stand
+statue
+steering wheel
+step
+steps
+stick
+stone
+stone wall
+stool
+stove
+straw
+streetlight
+stretcher
+stuffed animal head
+suitcase
+sun
+sweater
+swimming pool
+switch
+swivel chair
+synthesizer
+t-shirt
+table
+table football
+table tennis
+tallboy
+tank
+tap wrench
+tapestry
+teapot
+teddy bear
+telephone
+telephone booth
+telescope
+television
+television stand
+television table
+temple
+tennis court
+tent
+terrace
+test
+text
+ticket counter
+tile
+tin
+tire
+tissue box
+toaster
+toilet
+toilet brush
+toilet lid
+toilet paper
+tomb
+tombstone
+tool
+toothbrush
+topiary
+towel
+towel rack
+towel ring
+tower
+toy
+track
+traffic cone
+traffic light
+trailer
+train
+trash can
+tray
+tree
+tree trunk
+tree trunk fallen
+trench
+trolley
+trophy
+trousers
+truck
+trunk
+tub
+tube
+tumble dryer
+tunnel
+umbrella
+undergrowth
+utensil
+utensils canister
+valley
+van
+van rear
+van side
+vase
+vault
+vegetable
+vending machine
+vent
+video
+village
+vineyard
+volcano
+walkway
+wall
+wall spotlight
+wardrobe
+washbasin
+washing machine
+wastepaper basket
+watchtower
+water
+water bottle
+water fountain
+water lake
+water tower
+water wheel
+waterfall
+wave
+weighbridge
+wheat field
+wheel
+wheelchair
+whiteboard
+windmill
+window
+window door
+windshield
+wine glass
+wire
+wood wall
+workbench
+worktop
