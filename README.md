@@ -1,6 +1,6 @@
 # Co-occurrence lists (Step 2a)
 
-For every object type in SUN2012 with at least 10 images (682 types), this builds
+For every object type in SUN2012 with at least 10 images (679 types), this builds
 a list of up to 10 objects that co-occur with it in real scenes, to be used later
 to locate the object. The list combines co-occurrence statistics with a review by
 an LLM (Qwen3).
@@ -19,10 +19,14 @@ resumes where it stopped, so an interrupted run can be restarted with the same
 command.
 
 Useful flags:
+- `--hours 2`: run the LLM stage for about two hours, then stop. The same command
+  continues later, so the full run (several hours) can be split over sessions.
+  Ctrl+C also stops it safely; only the object in progress is lost.
 - `--only bed toilet`: run the LLM stage for a few objects first.
 - `--skip-llm`: build the lists from the data only.
 - `--thinking`: turn on Qwen3's reasoning (slower, often better).
-- `--redo-llm`: rerun the LLM stage for objects it already finished.
+- `--redo-llm`: rerun the LLM stage for objects it already finished, including
+  invalid ones (otherwise kept: greedy decoding would give the same reply).
 - `--model`: use another MLX model, e.g. `mlx-community/Qwen3-8B-4bit`.
 
 ## Layout
@@ -54,7 +58,10 @@ A single stage can be run on its own from the repo root, e.g.
 
 **Parse.** LabelMe XML from SUN2012: 15,017 images with at least two object types.
 Deleted objects are dropped. Labels are normalised: modifiers ("bus occluded"),
-indices ("wall 2") and plurals are collapsed. Types are de-duplicated per image.
+indices ("wall 2") and plurals are collapsed ("chest of drawers" keeps its plural
+tail). About 170 hand-reviewed misspellings and spacing variants are merged
+(`SPELLING` in `data_code/sun_vocab.py`: "bathtube" → "bathtub", "door frame" /
+"doorframe"); look-alikes that name different objects ("brush" / "bush") are not. Types are de-duplicated per image.
 
 **Empirical.** The vocabulary is every type in at least 10 images. A partner is a
 candidate if it shares at least 3 images with the target and has positive NPMI.
@@ -62,18 +69,35 @@ Candidates are ranked by NPMI. The top 10 become the anchors and the next 20 are
 kept as runners-up. A target is `ok` when its 10 anchors each share at least 5
 images, `thin` otherwise, and `none` when it has no candidates.
 
+**Trust level.** NPMI is least reliable for rare objects, whose whole ranking comes
+from a few scenes. Each target therefore gets a trust level from the number of
+images it appears in, which sets how far the LLM may depart from the data:
+
+| Level | Images | LLM may |
+|---|---|---|
+| `data` | 100 or more (174 targets) | remove only variants, parts, artefacts or a SPARSE anchor; add nothing of its own |
+| `balanced` | 30–99 (194) | correct the list for any reason; add at most 3 objects of its own |
+| `llm` | fewer than 30 (311) | treat the data as a hint and rely on its own knowledge |
+
 **LLM review.** The model is Qwen3-30B-A3B, 4-bit, run locally through MLX, with
 greedy decoding so the run is reproducible. For each target it sees the anchors
 with their evidence, the runners-up and the vocabulary, and returns the final
 list. Its instructions:
 
-- Keep the data by default.
-- Remove label variants, parts of the target, artefacts and anchors that come from
-  an unrepresentative sample.
+- Follow the target's trust level.
+- Account for every empirical anchor: keep it, or list it as removed with a
+  category (`variant`, `part`, `artefact`, `sparse`, `weaker`) and a reason.
 - Prefer runners-up over its own additions.
 
-The code checks the reply. Bad JSON, names outside the vocabulary, duplicates and
-the target itself are sent back to the model, which retries (up to 3 attempts).
+The code checks the reply. Bad JSON, names outside the vocabulary, duplicates, the
+target itself, and anything the trust level does not allow (too many additions, a
+forbidden removal category, an object both kept and removed, or at the DATA level an
+empirical anchor dropped without being listed) are
+sent back to the model, which retries (up to 2 attempts). Each record stores the
+`RULES_VERSION` it was made under; records from older rules are rerun automatically. If the last attempt still has
+problems, entries the model could not fix (names outside the vocabulary, the target,
+repeats) are dropped and listed under `salvaged`, so one bad name does not discard
+a whole list.
 
 **Merge.** Each anchor is tagged by where it came from:
 
@@ -92,7 +116,7 @@ Every anchor carries its SUN2012 evidence (`count`, `npmi`, `p_given`), so an
 
 ## Known limits
 
-- Anchors are restricted to the 682-type vocabulary.
+- Anchors are restricted to the 679-type vocabulary.
 - `added` objects come from text knowledge, not observation. Filter on `source`
   or `count` where a downstream step needs data-backed anchors.
 - 4-bit quantisation costs Qwen a little accuracy. A larger machine can run a

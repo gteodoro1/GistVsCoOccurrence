@@ -21,6 +21,14 @@ Each target then gets a status the LLM step reads:
     none    no candidate at all
 The top K are written as `anchors`, and the next RUNNERS_UP as `runners_up`, so
 the LLM step can promote a data-backed object before inventing one.
+
+PMI-style scores are least reliable for rare objects: a target seen in a dozen
+images gets its whole ranking from those few scenes. So each target also gets a
+trust level from its image count (df), which sets how much the LLM step may
+change its list:
+    data      df >= TRUST_DATA_MIN_DF      the data decides; the LLM only cleans
+    balanced  df >= TRUST_BALANCED_MIN_DF  the LLM may correct and complete
+    llm       below that                   the LLM leads; the data is a hint
 """
 import argparse
 import json
@@ -36,6 +44,16 @@ K = 10
 RUNNERS_UP = 20
 MIN_PAIR_COUNT = 3     # below this a pair is not a candidate at all
 SOLID_PAIR_COUNT = 5   # below this a candidate is flagged as sparse
+TRUST_DATA_MIN_DF = 100     # a 10%-frequent anchor then shares >= 10 images
+TRUST_BALANCED_MIN_DF = 30
+
+
+def trust_level(df: int) -> str:
+    if df >= TRUST_DATA_MIN_DF:
+        return "data"
+    if df >= TRUST_BALANCED_MIN_DF:
+        return "balanced"
+    return "llm"
 
 
 def main(images_path: Path, out_path: Path, vocab_path: Path) -> None:
@@ -66,7 +84,7 @@ def main(images_path: Path, out_path: Path, vocab_path: Path) -> None:
                 "npmi": round(npmi, 4), "p_given": round(p_given, 4),
                 "sparse": c < SOLID_PAIR_COUNT}
 
-    targets, status_counts = {}, Counter()
+    targets, status_counts, trust_counts = {}, Counter(), Counter()
     for t in vocab:
         ranked = sorted(partners[t], key=lambda e: (-e[2], -e[1], e[0]))
         rows = [entry(i + 1, *e) for i, e in enumerate(ranked[:K + RUNNERS_UP])]
@@ -78,8 +96,10 @@ def main(images_path: Path, out_path: Path, vocab_path: Path) -> None:
         else:
             status = "ok"
         status_counts[status] += 1
+        trust = trust_level(df[t])
+        trust_counts[trust] += 1
         targets[t] = {"df": df[t], "n_candidates": len(ranked), "status": status,
-                      "anchors": anchors, "runners_up": runners}
+                      "trust": trust, "anchors": anchors, "runners_up": runners}
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps({
@@ -93,6 +113,8 @@ def main(images_path: Path, out_path: Path, vocab_path: Path) -> None:
             "min_pair_count": MIN_PAIR_COUNT,
             "solid_pair_count": SOLID_PAIR_COUNT,
             "status_counts": dict(status_counts),
+            "trust_min_df": {"data": TRUST_DATA_MIN_DF, "balanced": TRUST_BALANCED_MIN_DF},
+            "trust_counts": dict(trust_counts),
         },
         "targets": targets,
     }, indent=1) + "\n")
@@ -101,6 +123,7 @@ def main(images_path: Path, out_path: Path, vocab_path: Path) -> None:
 
     print(f"{n_images} images, {len(vocab)} object types with >= {MIN_DF} images -> {out_path}")
     print("status: " + ", ".join(f"{s}={c}" for s, c in status_counts.most_common()))
+    print("trust:  " + ", ".join(f"{s}={c}" for s, c in trust_counts.most_common()))
     for t in ["bed", "flower", "toilet", "car"]:
         if t in targets:
             print(f"  {t:<8} [{targets[t]['status']}] "

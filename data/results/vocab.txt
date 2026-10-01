@@ -36,7 +36,6 @@ basket
 basketball hoop
 bat
 bathtub
-bathtube
 beam
 bed
 bell
@@ -123,7 +122,7 @@ chandelier
 check-in-desk
 cheese
 chest
-chest of drawer
+chest of drawers
 chimney
 cistern
 city
@@ -398,7 +397,6 @@ path
 pavilion
 pedestal
 pen
-people sitting
 pepper
 person
 person player
@@ -445,7 +443,6 @@ pylon
 quay
 rack
 racket
-racking chair
 radiator
 radio
 rail
@@ -494,7 +491,7 @@ sea water
 seat
 separation
 service station
-set of instrument
+set of instruments
 sewing machine
 shanty
 sheep

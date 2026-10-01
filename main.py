@@ -14,6 +14,9 @@ stage resumes where it stopped, so an interrupted run can simply be restarted.
 
 data_code/ holds stages 0-1 (getting the data), src/ holds stages 2-4 (the method).
 
+The LLM stage takes hours. It can be split over several sessions: stop it with
+Ctrl+C or give it a budget with --hours 2, and the same command continues later.
+
 Stage 2 is cheap and always reruns, so a change to its settings reaches the
 final lists. Use --redo-llm to rerun stage 3 for targets it already finished.
 """
@@ -49,7 +52,7 @@ def main(a):
         stage(3, "llm")
         from src import llm_review    # imported here so the other stages run without MLX
         llm_review.main(a.model or llm_review.MODEL_ID, a.thinking,
-                           a.only, a.limit, a.redo_llm)
+                        a.only, a.limit, a.redo_llm, a.hours)
 
     stage(4, "merge")
     merge.main()
@@ -64,6 +67,8 @@ if __name__ == "__main__":
     ap.add_argument("--only", nargs="+", metavar="OBJECT",
                     help="run the LLM stage for just these objects, e.g. --only bed toilet")
     ap.add_argument("--limit", type=int, help="run the LLM stage for at most this many new objects")
+    ap.add_argument("--hours", type=float,
+                    help="run the LLM stage for about this many hours, then stop; rerun to continue")
     ap.add_argument("--redo-llm", action="store_true",
                     help="rerun the LLM stage for objects it already finished")
     ap.add_argument("--skip-llm", action="store_true", help="build the lists from the data only")

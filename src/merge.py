@@ -2,7 +2,8 @@
 """Step 3 of 3: merge the empirical and LLM steps into the final lists.
 
 For every target, the final list is the LLM-reviewed one from llm_raw/. Where a
-target has no valid LLM record (not run yet, or still invalid after retries),
+target has no valid LLM record under the current rules (not run yet, still
+invalid after retries, or made under an older RULES_VERSION),
 it falls back to the empirical top-10 and is marked `llm_reviewed: false`, so
 no target is silently missing and the fallback stays visible.
 
@@ -28,6 +29,7 @@ import json
 import math
 from collections import Counter
 
+from src.llm_review import RULES_VERSION
 from src.paths import (EMPIRICAL_PATH, FINAL_CSV as OUT_CSV, FINAL_JSON as OUT_JSON,
                        IMAGES_PATH, LLM_RAW_DIR as RAW_DIR)
 K = 10
@@ -67,7 +69,7 @@ def main():
     src_counts, by_counts, n_reviewed = Counter(), Counter(), 0
     for target, info in emp["targets"].items():
         rec = llm.get(target)
-        reviewed = bool(rec and rec["valid"])
+        reviewed = bool(rec and rec["valid"] and rec.get("rules_version") == RULES_VERSION)
         if reviewed:
             n_reviewed += 1
             anchors = [{"object": a["object"], "source": a["source"], "reason": a["reason"]}
@@ -90,8 +92,9 @@ def main():
             a["decided_by"] = DECIDED_BY[a["source"]]
             src_counts[a["source"]] += 1
             by_counts[a["decided_by"]] += 1
-            rows.append({"target": target, "target_df": info["df"], **a})
-        final[target] = {"df": info["df"], "empirical_status": info["status"],
+            rows.append({"target": target, "target_df": info["df"], "trust": info["trust"], **a})
+        final[target] = {"df": info["df"], "trust": info["trust"],
+                         "empirical_status": info["status"],
                          "llm_reviewed": reviewed, "anchors": anchors,
                          "removed": removed, "data_quality_note": note}
 
@@ -102,7 +105,7 @@ def main():
                  "empirical": emp["meta"]},
         "targets": final,
     }, indent=1) + "\n")
-    fields = ["target", "target_df", "rank", "object", "decided_by", "source",
+    fields = ["target", "target_df", "trust", "rank", "object", "decided_by", "source",
               "count", "npmi", "p_given", "reason"]
     with OUT_CSV.open("w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=fields)

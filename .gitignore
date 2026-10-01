@@ -20,3 +20,9 @@ writing/methods_coocurrance_lists.tex
 writing/
 *.tex
 *.bib
+
+# Generated results: rebuilt by python main.py. Commit the final lists once the
+# full run is done (git add -f data/results/final.csv).
+data/results/*.json
+data/results/*.csv
+data/results/llm_raw/
